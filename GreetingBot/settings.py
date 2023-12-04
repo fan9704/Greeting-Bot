@@ -9,24 +9,28 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mds(tvj3l4(l%%4p*axzue+i3g0hq(+$orrdi4jxgz*aw&$^3m'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG",True)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["127.0.0.1"]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_HEADERS = "*"
+CORS_ORIGIN_ALLOW_METHODS = "*"
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8000",
+]
 
 # Application definition
 
@@ -71,17 +75,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'GreetingBot.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("POSTGRES_DB", "greet"),
+        'TEST': {
+            'NAME': os.getenv("POSTGRES_TEST_DB", "greettest")
+        },
+        'USER': os.getenv("POSTGRES_USER", "test"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD", "123456"),
+        'HOST': os.getenv("POSTGRES_DB_URL", "127.0.0.1"),
+        'PORT': os.getenv("POSTGRES_DB_PORT", "5432")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -101,24 +110,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'zh-TW'
+TIME_ZONE = 'Asia/Taipei'
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
-
+DEFAULT_CHARSET = 'utf-8'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
