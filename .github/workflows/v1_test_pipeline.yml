@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        PYTHON_VERSION: "3.10"
+        PYTHON_VERSION: "3.10.5"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,10 +23,12 @@ jobs:
           echo "${{ env.ENV_FILE }}" > .env
           source .env
 
-      - name: Docker Compose Action
-        uses: isbang/compose-action@v1.4.1
+      - uses: harmon758/postgresql-action@v1
         with:
-          compose-file: "./docker-compose.yml"
+          postgresql version: '13'
+          postgresql db: ${{ secrets.POSTGRES_DB }}
+          postgresql user: ${{ secrets.POSTGRES_USER}}
+          postgresql password: ${{ secrets.POSTGRES_PASSWORD}}
       - name: Setup Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v2
         with:
