@@ -11,6 +11,8 @@ drf-yasg = "==1.21.5"
 line-bot-sdk = "==3.5.1"
 psycopg2-binary = "==2.9.9"
 pyngrok = "==5.0.5"
+firebase-admin = "*"
+mongoengine = "*"
 
 [dev-packages]
 
