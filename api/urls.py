@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views import callback
+from api.bot import callback
 
 urlpatterns = [
     path('callback/', callback, name="LINE-Bot-Callback"),
