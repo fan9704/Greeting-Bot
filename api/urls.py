@@ -6,5 +6,6 @@ urlpatterns = [
     # LINE Bot
     path('callback/', callback, name="LINE-Bot-Callback"),
     # API
-    path('simple-message/', SimpleMessageAPIView.as_view(), name="Simple-Message-API")
+    path('simple-message/', SimpleMessageAPIView.as_view(), name="Simple-Message-API"),
+    path('difference-gender/', SimpleMessageAPIView.as_view(), name="Difference-Gender-API"),
 ]
