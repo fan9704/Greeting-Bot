@@ -1,7 +1,7 @@
 import logging
 
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from linebot.v3 import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.messaging import (
@@ -20,6 +20,7 @@ handler = WebhookHandler(settings.LINE_CHANNEL_SECRET)
 
 logger = logging.getLogger(__name__)
 
+
 def callback(request):
     if request.method == "POST":
         signature = request.META['HTTP_X_LINE_SIGNATURE']
@@ -27,11 +28,26 @@ def callback(request):
         try:
             handler.handle(body, signature)
         except InvalidSignatureError:
-            return Response(status=status.HTTP_400_BAD_REQUEST) # Invalid Signature
+            return Response(status=status.HTTP_400_BAD_REQUEST)  # Invalid Signature
         except Exception as E:
             print(E)
-            return Response(status=status.HTTP_400_BAD_REQUEST) # Exception
-        return HttpResponse("Success.") # Success
+            return Response(status=status.HTTP_400_BAD_REQUEST)  # Exception
+        return HttpResponse("Success.")  # Success
+    else:
+        return HttpResponseBadRequest()
+
+
+# # Basic Reply same word as user input
+# @handler.add(MessageEvent, message="Happy birthday!")
+# def handle_message(event):
+#     with ApiClient(configuration) as api_client:
+#         line_bot_api = MessagingApi(api_client)
+#         line_bot_api.reply_message_with_http_info(
+#             ReplyMessageRequest(
+#                 reply_token=f"Happy birthday, dear {}!",
+#                 messages=[TextMessage(text=event.message.text)]
+#             )
+#         )
 
 
 # Basic Reply same word as user input
