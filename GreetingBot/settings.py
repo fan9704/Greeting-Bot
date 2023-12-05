@@ -137,8 +137,8 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # LINE Bot Configuration
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", "")
-LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", "")
+LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET", None)
 # Ngrok Configuration
 BASE_URL = "http://127.0.0.1:8000"
 DEV_SERVER = len(sys.argv) > 1 and sys.argv[1] == "runserver"
