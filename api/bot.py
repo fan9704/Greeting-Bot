@@ -37,27 +37,24 @@ def callback(request):
         return HttpResponseBadRequest()
 
 
-# # Basic Reply same word as user input
-# @handler.add(MessageEvent, message="Happy birthday!")
-# def handle_message(event):
-#     with ApiClient(configuration) as api_client:
-#         line_bot_api = MessagingApi(api_client)
-#         line_bot_api.reply_message_with_http_info(
-#             ReplyMessageRequest(
-#                 reply_token=f"Happy birthday, dear {}!",
-#                 messages=[TextMessage(text=event.message.text)]
-#             )
-#         )
-
-
 # Basic Reply same word as user input
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
-        line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=event.message.text)]
+        if "happy birthday" in event.message.text.lower():
+            profile = line_bot_api.get_profile(event.source.user_id)
+            username = profile.display_name
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=f"Happy birthday, dear {username}!")]
+                )
             )
-        )
+        else:
+            line_bot_api.reply_message_with_http_info(
+                ReplyMessageRequest(
+                    reply_token=event.reply_token,
+                    messages=[TextMessage(text=event.message.text)]
+                )
+            )
