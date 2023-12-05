@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        PYTHON_VERSION: "3.10"
+        PYTHON_VERSION: "3.10.5"
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
