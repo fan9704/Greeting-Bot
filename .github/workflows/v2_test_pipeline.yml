@@ -1,0 +1,58 @@
+name: Greeting Bot V1 CI Pipeline
+
+on:
+    workflow_call:
+    workflow_dispatch:
+    push:
+       branches: [version2_Tailer-made_Message_for_different_gender]
+    pull_request:
+        branches: [version2_Tailer-made_Message_for_different_gender]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+        DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        PYTHON_VERSION: "3.10.5"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create env file
+        run: |
+          echo "${{ env.ENV_FILE }}" > .env
+          source .env
+
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '13'
+          postgresql db: ${{ secrets.POSTGRES_DB }}
+          postgresql user: ${{ secrets.POSTGRES_USER}}
+          postgresql password: ${{ secrets.POSTGRES_PASSWORD}}
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v2
+        with:
+           python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install pipenv
+        run: pip install pipenv
+      - name: Install Dependencies from pipenv
+        run: |
+          pipenv install
+          pipenv run pip freeze > requirements.txt
+          pip install -r requirements.txt
+          rm requirements.txt
+
+      - name: Django Make Migration Checking
+        run: |
+            pipenv run python manage.py makemigrations
+      - name: Django Migrate Database to postgresql
+        run: |
+            pipenv run python manage.py migrate
+
+      - name: Create Testing Database
+        run : |
+            pipenv run python manage.py create_test_db
+
+      - name: Run Tests
+        run: |
+          pipenv run python manage.py test
