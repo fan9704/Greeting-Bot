@@ -97,7 +97,13 @@ DATABASES = {
         'PORT': os.getenv("POSTGRES_DB_PORT", "5432")
     }
 }
-
+REST_FRAMEWORK = {
+  'DEFAULT_RENDERER_CLASSES': (
+    'rest_framework.renderers.JSONRenderer',
+    'rest_framework_xml.parsers.XMLParser',
+    'rest_framework.renderers.BrowsableAPIRenderer',
+  )
+}
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
