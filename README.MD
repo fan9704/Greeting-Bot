@@ -24,10 +24,15 @@ Apache License
 
 ## Getting Start
 
-### Step.1 Install Dependencies
+### Step.1 Install Dependencies and setup Environment
 
+Install Python Dependencies
 ```shell
 pipenv install
+```
+Setup Environment
+```shell
+docker-compose up -d
 ```
 
 ### Step.2 Setup LINE bot account
@@ -72,3 +77,23 @@ After runserver pyngrok will display a external address then copy it to LINE bot
 ![](./doc/Runserver-Ngrok.png)
 
 
+---
+
+## Testing
+
+### Build Test Database
+
+Execute python script 
+
+```shell
+pipenv run python manage.py create_test_db
+```
+
+### Test with test script
+
+```shell
+python manage.py test GreetingBot.test [--verbosity 2]# Unit Test --verbosity 2 is output detail
+python manage.py test api.tests.unit [--verbosity 2]# Unit Test --verbosity 2 is output detail
+python manage.py test api.tests.integration #Intergration Test
+python manage.py test  #All Test
+```
