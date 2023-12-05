@@ -16,7 +16,7 @@ class User(models.Model):
     )
     date_of_birth = models.DateField(
         verbose_name="生日",
-        default=timezone.now(),
+        default=timezone.now,
     )
     email = models.EmailField(
         verbose_name="電子信箱"
