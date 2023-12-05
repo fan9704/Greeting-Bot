@@ -27,7 +27,13 @@ services:
       - "db:pgsql-server"
     networks:
       - db_network
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: 123456
 
 networks:
   db_network:
-    driver: host
+    driver: bridge
