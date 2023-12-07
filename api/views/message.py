@@ -7,6 +7,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from api.service.user import UserService
 from api.models import User
 from api.serializers.user import MessageSerializer
 
@@ -14,6 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 class SimpleMessageAPIView(APIView):
+    repository = UserService
+
     @swagger_auto_schema(
         operation_summary='Simple Message',
         operation_description='Bless every user who is birthday boy/girl Happy birthday! dear "username"',
@@ -22,11 +25,9 @@ class SimpleMessageAPIView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             if "happy birthday" in request.data.get("message", "").lower():
-                birthday_user_list = User.objects.filter(date_of_birth__day=datetime.today().day,
-                                                         date_of_birth__month=datetime.today().month)
+                birthday_user_list = self.repository.get_birthday_user_queryset()
                 response = []
                 for user in birthday_user_list:
-
                     single_response = {
                         "status": "success",
                         "message": f'Happy birthday, dear {user.last_name}',
