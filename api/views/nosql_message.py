@@ -5,7 +5,7 @@ import logging
 
 from rest_framework.exceptions import ValidationError
 
-from api.serializers.user import SimpleMessageSerializer
+from api.serializers.user import MessageSerializer
 from api.documents import User
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
@@ -20,11 +20,11 @@ class NoSQLMessageAPIView(APIView):
     @swagger_auto_schema(
         operation_summary='NoSQL Message',
         operation_description='Reply username whole name use NoSQL',
-        request_body=SimpleMessageSerializer
+        request_body=MessageSerializer
     )
     def post(self, request, *args, **kwargs):
         try:
-            serializer = SimpleMessageSerializer(data=request.data)
+            serializer = MessageSerializer(data=request.data)
             serializer.is_valid()
 
             user = User.objects(last_name=request.data.get("last_name"))
