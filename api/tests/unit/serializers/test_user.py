@@ -3,7 +3,7 @@ import datetime
 
 from rest_framework.exceptions import ValidationError
 from django.test import TestCase
-from api.serializers.user import SimpleMessageSerializer, UserSerializer
+from api.serializers.user import MessageSerializer, UserSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -29,6 +29,7 @@ class UserSerializerTestCase(TestCase):
         self.assertEqual(serializer.validated_data['email'], "u1@gmail.com")
         logger.debug("Complete User Serializer Test")
 
+    def test_user_serializer_invalid_data(self):
         # Input Invalid JSON Data
         invalid_user_data = {
             'gender': '',
@@ -40,25 +41,23 @@ class UserSerializerTestCase(TestCase):
             serializer.is_valid(raise_exception=True)
         logger.debug("Complete User Invalid Serializer Test")
 
-    def test_simple_message_serializer(self):
+    def test_message_serializer(self):
         message_data = {
             "message": "Happy Birthday",
-            "username": "Cat"
         }
-        serializer = SimpleMessageSerializer(data=message_data)
+        serializer = MessageSerializer(data=message_data)
         serializer.is_valid()
         # Assert
         self.assertTrue(serializer.is_valid())
-        self.assertEqual(serializer.validated_data['username'], 'Cat')
         self.assertEqual(serializer.validated_data['message'], 'Happy Birthday')
-        logger.debug("Complete Simple Message Serializer Test")
+        logger.debug("Complete Message Serializer Test")
 
+    def test_message_serializer_invalid_data(self):
         # Input Invalid JSON Data
         invalid_user_data = {
             "message": "",
-            "username": ""
         }
-        serializer = SimpleMessageSerializer(data=invalid_user_data)
+        serializer = MessageSerializer(data=invalid_user_data)
         with self.assertRaises(ValidationError):
             serializer.is_valid(raise_exception=True)
-        logger.debug("Complete Simple Message Invalid Serializer Test")
+        logger.debug("Complete Message Invalid Serializer Test")
