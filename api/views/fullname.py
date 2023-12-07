@@ -6,36 +6,37 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from api.models import User
-from api.serializers.user import SimpleMessageSerializer
+from api.serializers.user import MessageSerializer
+from api.service.user import UserService
 
 logger = logging.getLogger(__name__)
 
 
 class FullnameAPIView(APIView):
+    repository = UserService
     @swagger_auto_schema(
         operation_summary='Fullname Message',
-        operation_description='Reply username whole name',
-        request_body=SimpleMessageSerializer
+        operation_description='Reply Birthday username whole name',
+        request_body=MessageSerializer
     )
     def post(self, request, *args, **kwargs):
         try:
-            serializer = SimpleMessageSerializer(data=request.data)
-            serializer.is_valid()
-            user, _ = User.objects.get_or_create(
-                first_name=serializer.data["username"],
-            )
-            fullname = f'{user.last_name},{user.first_name}'
-            if "happy birthday" in serializer.data["message"].lower():
-                return Response({
-                    "status": "success",
-                    "message": f'Happy birthday, dear {fullname}',
-                }, status=status.HTTP_200_OK)
+            if "happy birthday" in request.data.get("message", "").lower():
+                birthday_user_list = self.repository.get_birthday_user_queryset()
+                response = []
+                for user in birthday_user_list:
+                    single_response = {
+                        "status": "success",
+                        "message": f'Happy birthday, dear {user.last_name}, {user.first_name}!',
+                    }
+                    response.append(single_response)
+                return Response(response, status=status.HTTP_200_OK)
             else:
-                return Response({
+                response = [{
                     "status": "fail",
-                    "message": "message invalid"
-                }, status=status.HTTP_400_BAD_REQUEST)
+                    "message": 'message invalid',
+                }]
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
         except ValidationError:
             return Response({
                 "status": "fail",
