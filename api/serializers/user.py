@@ -17,14 +17,3 @@ class SimpleMessageSerializer(serializers.Serializer):
 
 class MessageSerializer(serializers.Serializer):
     message = serializers.CharField(max_length=255)
-
-
-class DifferenceGenderSerializer(serializers.Serializer):
-    gender = serializers.ChoiceField(
-        choices=(
-            ('m', 'Male'),
-            ('f', 'Female'),
-        )
-    )
-    message = serializers.CharField(max_length=255)
-    username = serializers.CharField(max_length=255)

@@ -3,7 +3,7 @@ import datetime
 
 from rest_framework.exceptions import ValidationError
 from django.test import TestCase
-from api.serializers.user import SimpleMessageSerializer, UserSerializer, DifferenceGenderSerializer
+from api.serializers.user import SimpleMessageSerializer, UserSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -62,29 +62,3 @@ class UserSerializerTestCase(TestCase):
         with self.assertRaises(ValidationError):
             serializer.is_valid(raise_exception=True)
         logger.debug("Complete Simple Message Invalid Serializer Test")
-
-    def test_difference_gender_serializer(self):
-        message_data = {
-            "gender": "m",
-            "message": "Happy Birthday",
-            "username": "Cat"
-        }
-        serializer = DifferenceGenderSerializer(data=message_data)
-        serializer.is_valid()
-        # Assert
-        self.assertTrue(serializer.is_valid())
-        self.assertEqual(serializer.validated_data['username'], 'Cat')
-        self.assertEqual(serializer.validated_data['message'], 'Happy Birthday')
-        self.assertEqual(serializer.validated_data['gender'], 'm')
-        logger.debug("Complete Difference Gender Serializer Test")
-
-        # Input Invalid JSON Data
-        invalid_user_data = {
-            "gender": "",
-            "message": "",
-            "username": ""
-        }
-        serializer = DifferenceGenderSerializer(data=invalid_user_data)
-        with self.assertRaises(ValidationError):
-            serializer.is_valid(raise_exception=True)
-        logger.debug("Complete Difference Gender Invalid Serializer Test")
