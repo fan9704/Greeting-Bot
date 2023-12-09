@@ -15,6 +15,7 @@ firebase-admin = "*"
 mongoengine = "*"
 djangorestframework-xml = "*"
 pytest = "*"
+testcontainers = "*"
 
 [dev-packages]
 
