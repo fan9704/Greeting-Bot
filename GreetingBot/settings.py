@@ -86,6 +86,14 @@ WSGI_APPLICATION = 'GreetingBot.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'greet',
+        'CLIENT': {
+            'host': f'mongodb://{os.getenv("MONGO_DB_URL", "127.0.0.1")}:{os.getenv("MONGO_DB_PORT", 27017)}',
+            'port': int(os.getenv("MONGO_DB_PORT", 27017)),
+        }
+    },
+    'default2': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv("POSTGRES_DB", "greet"),
         'TEST': {
@@ -98,11 +106,11 @@ DATABASES = {
     }
 }
 REST_FRAMEWORK = {
-  'DEFAULT_RENDERER_CLASSES': (
-    'rest_framework.renderers.JSONRenderer',
-    'rest_framework_xml.parsers.XMLParser',
-    'rest_framework.renderers.BrowsableAPIRenderer',
-  )
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework_xml.parsers.XMLParser',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
 }
 TEST_REQUEST_RENDERER_CLASSES = [
     'rest_framework.renderers.JSONRenderer',

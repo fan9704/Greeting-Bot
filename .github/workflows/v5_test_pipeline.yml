@@ -1,12 +1,12 @@
-name: Greeting Bot V1 CI Pipeline
+name: Greeting Bot V5 CI Pipeline
 
 on:
     workflow_call:
     workflow_dispatch:
     push:
-       branches: [master]
+       branches: [version5_nosql]
     pull_request:
-        branches: [master]
+        branches: [version5_nosql]
 
 jobs:
   build:
@@ -22,10 +22,8 @@ jobs:
         run: |
           echo "${{ env.ENV_FILE }}" > .env
           source .env
-
       - name: MongoDB in GitHub Actions
         uses: supercharge/mongodb-github-action@1.10.0
-
       - uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '13'

@@ -29,11 +29,12 @@ services:
       - db_network
   mongo:
     image: mongo
+    container_name: mongo-line
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: test
-      MONGO_INITDB_ROOT_PASSWORD: 123456
-
+    ports:
+      - "27017:27017"
+    networks:
+      - db_network
 networks:
   db_network:
     driver: bridge
