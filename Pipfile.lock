@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "2357c71c5ef6f867bec6789a625ca8cd28b1b8f0b6169e4082e783227d3fd604"
+            "sha256": "1b59b09a5556dfb25d2935f24b3a7971220672572ab30b57919fcb690e1029c2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -572,11 +572,11 @@
         },
         "google-api-python-client": {
             "hashes": [
-                "sha256:1f825e48c7fdc3c96ad6aac179cb73c3755dfff41d16487fa7130e5efcfe7b76",
-                "sha256:55e7ebd6079e34934b6751537eb13447110351ae3792a724a33825d7b671ba13"
+                "sha256:3a45a53c031478d1c82c7162dd25c9a965247bca6bd438af0838a9d9b8219405",
+                "sha256:b605adee2d09a843b97a59925757802904679e44e5599708cedb8939900dfbc7"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==2.110.0"
+            "version": "==2.111.0"
         },
         "google-auth": {
             "hashes": [
@@ -588,10 +588,10 @@
         },
         "google-auth-httplib2": {
             "hashes": [
-                "sha256:42c50900b8e4dcdf8222364d1f0efe32b8421fb6ed72f2613f12f75cc933478c",
-                "sha256:c64bc555fdc6dd788ea62ecf7bccffcf497bf77244887a3f3d7a5a02f8e3fc29"
+                "sha256:38aa7badf48f974f1eb9861794e9c0cb2a0511a4ec0679b1f886d108f5640e05",
+                "sha256:b65a0a2123300dd71281a7bf6e64d65a0759287df52729bdd1ae2e47dc311a3d"
             ],
-            "version": "==0.1.1"
+            "version": "==0.2.0"
         },
         "google-cloud-core": {
             "hashes": [
@@ -603,19 +603,19 @@
         },
         "google-cloud-firestore": {
             "hashes": [
-                "sha256:8b9ace47f8aeb561a6fd74620a7335e30c48a25e18dfedbd0d7923695768d156",
-                "sha256:bd14d2eb9ae358d21058ce091c13dea11917e26f1c43738a51e9cea8b49b4f38"
+                "sha256:9abfb753eb3cf70076b9cff086f71d398c097c0b1b0fd965d5af27d5ae4ae401",
+                "sha256:dd5e03faa1bb795da186747184e1323fe312538ae36143fc26999cafc632b30a"
             ],
             "markers": "platform_python_implementation != 'PyPy'",
-            "version": "==2.13.1"
+            "version": "==2.14.0"
         },
         "google-cloud-storage": {
             "hashes": [
-                "sha256:ab0bf2e1780a1b74cf17fccb13788070b729f50c252f0c94ada2aae0ca95437d",
-                "sha256:f62dc4c7b6cd4360d072e3deb28035fbdad491ac3d9b0b1815a12daea10f37c7"
+                "sha256:2d23fcf59b55e7b45336729c148bb1c464468c69d5efbaee30f7201dd90eb97e",
+                "sha256:8641243bbf2a2042c16a6399551fbb13f062cbc9a2de38d6c0bb5426962e9dbd"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==2.13.0"
+            "version": "==2.14.0"
         },
         "google-crc32c": {
             "hashes": [
@@ -693,11 +693,11 @@
         },
         "google-resumable-media": {
             "hashes": [
-                "sha256:972852f6c65f933e15a4a210c2b96930763b47197cdf4aa5f5bea435efb626e7",
-                "sha256:fc03d344381970f79eebb632a3c18bb1828593a2dc5572b5f90115ef7d11e81b"
+                "sha256:5f18f5fa9836f4b083162064a1c2c98c17239bfda9ca50ad970ccf905f3e625b",
+                "sha256:79543cfe433b63fd81c0844b7803aba1bb8950b47bedf7d980c38fa123937e08"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==2.6.0"
+            "version": "==2.7.0"
         },
         "googleapis-common-protos": {
             "hashes": [
@@ -1454,6 +1454,7 @@
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
                 "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
             ],
+            "index": "pypi",
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.8.2"
         },
@@ -1634,6 +1635,7 @@
                 "sha256:ce028444cfab83be538752a2ffdb56bc417b7784ff35bb9a3062413717807dec",
                 "sha256:d9cf190f51cbb26da0412247dfe4fb5f4098edb73db84e02f9fc21fdca31fed4"
             ],
+            "index": "pypi",
             "markers": "python_version >= '3.5'",
             "version": "==0.2.4"
         },
